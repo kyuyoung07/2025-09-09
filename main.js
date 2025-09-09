@@ -4,7 +4,7 @@
 //check버튼 누르면 할일이 끝나면서 밑줄이 간다.
 //1. check버튼을 클릭하는 순간 true->false
 //2. true이면 끝난걸로 간주하고 밑줄 보여주기
-//3. false이면 안끝ㄴ나걸로 간주하고 그대로
+//3. false이면 안끝난걸로 간주하고 그대로
 
 //진행중 끝남 탭을 누르면, 언더바가 이동한다.
 //끝남탭은 끝난 아이템만, 진행중탭은 진행중인 아이템만.
@@ -35,8 +35,8 @@ function render(){
         <div class="task">
             <div class="task-done">${taskList[i].taskContent}</div>
             <div>
-                <button onclick="toggleComplete('${taskList[i].id}')">Check</button>
-                <button onclick="deleteTask('${taskList[i].id}')">Delete</button>
+                <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
+                <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`
         }else{
@@ -44,8 +44,8 @@ function render(){
         <div class="task">
             <div>${taskList[i].taskContent}</div>
             <div>
-                <button onclick="toggleComplete('${taskList[i].id}')">Check</button>
-                <button onclick="deleteTask('${taskList[i].id}')">Delete</button>
+                <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
+                <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`
         }
