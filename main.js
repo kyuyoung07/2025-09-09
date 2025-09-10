@@ -13,8 +13,22 @@
 
 let taskInput=document.getElementById("task-input");
 let addButton=document.getElementById("add-button");
+let tabs=document.querySelectorAll(".task-tabs div")
 let taskList=[];
+let mode='all';
+let filterList=[];
+let underLine=document.getElementById("under-line");
+let Menus=document.querySelectorAll(".task-tabs div:not(#under-line)");
+
 addButton.addEventListener("click",addTask);
+
+Menus.forEach(menu=>menu.addEventListener("click",(e)=>Indicator(e)));
+
+for(let i=1;i<tabs.length;i++){
+    tabs[i].addEventListener("click",function(event){
+        filter(event);
+    });
+}
 
 function addTask(){
     let task={
@@ -28,24 +42,32 @@ function addTask(){
 }
 
 function render(){
+    //1. 내가 선택한 탭에 따라서
+    let list=[];
+    if(mode==="all"){
+        list=taskList;
+    }else if(mode==="ongoing" || mode==="done"){
+        list=filterList;
+    }
+    //2. 리스트를 달리 보여준다
     let resultHTML='';
-    for(let i=0;i<taskList.length;i++){
-        if(taskList[i].isComplete==true){
+    for(let i=0;i<list.length;i++){
+        if(list[i].isComplete==true){
             resultHTML+=`
         <div class="task task-done">
-            <span>${taskList[i].taskContent}</span>
+            <span>${list[i].taskContent}</span>
             <div class="button-box">
-                <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-undo-alt"></i></button>
-                <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-undo-alt"></i></button>
+                <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`
         }else{
             resultHTML+=`
         <div class="task">
-            <span>${taskList[i].taskContent}</span>
+            <span>${list[i].taskContent}</span>
             <div class="button-box">
-              <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
-              <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
+              <button onclick="toggleComplete('${list[i].id}')"><i class="fa-solid fa-check"></i></button>
+              <button onclick="deleteTask('${list[i].id}')"><i class="fa-solid fa-trash"></i></button>
             </div>
           </div>`
         }
@@ -65,6 +87,35 @@ function toggleComplete(id){
     console.log(taskList);
 }
 
+function filter(event){
+    mode=event.target.id
+    filterList=[];
+    if(mode==="all"){
+        //전체 리스트를 보여준다
+        render();
+    }else if(mode==="ongoing"){
+        //진행중인 아이템을 보여준다.
+        //task.isComplete=false
+        for(let i=0;i<taskList.length;i++){
+            if(taskList[i].isComplete===false){
+                filterList.push(taskList[i]);
+            }
+        }
+        render();
+        console.log("진행중",filterList);
+    }else if(mode==="done"){
+        //끝나는 케이스
+        //task.isComplete=true;
+        for(let i=0;i<taskList.length;i++){
+            if(taskList[i].isComplete===true){
+                filterList.push(taskList[i]);
+            }
+        }
+        render();
+        console.log("끝남",filterList);
+    }
+}
+
 function randomIDGenerate(){
     return Math.random().toString(36).substr(2, 16);
 }
@@ -78,4 +129,10 @@ function deleteTask(id){
     }
     render();
     console.log(taskList);
+}
+
+function Indicator(e){
+    underLine.style.left=e.currentTarget.offsetLeft+"px";
+    underLine.style.width=e.currentTarget.offsetWidth+"px";
+    underLine.style.top=e.currentTarget.offsetTop+e.currentTarget.offsetHeight+"px";
 }

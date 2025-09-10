@@ -28,6 +28,7 @@ body{
     left: 0px;
     top: 52px;
     padding: 0px;
+    transition: 0.5s;
 }
 .task{
     display: flex;
@@ -76,4 +77,8 @@ body{
 }
 .fa-undo-alt {
   color: lightslategray;
+}
+/*커서*/
+.task-tabs div{
+    cursor: pointer;
 }
