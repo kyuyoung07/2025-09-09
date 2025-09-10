@@ -24,7 +24,7 @@ body{
     height: 4px;
     background-color: pink;
     position: absolute;
-    width: 80px;
+    width: 65px;
     left: 0px;
     top: 52px;
     padding: 0px;
@@ -32,8 +32,48 @@ body{
 .task{
     display: flex;
     justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+}
+.task span{
     padding: 1em;
 }
 .task-done{
     text-decoration: line-through;
+    background-color: lightgray;
+    transition: 0.5s;
+}
+/*버튼배경*/
+.button-box{
+    display: flex;
+}
+.button-box button{
+    height: 100%;
+    border: none;
+    width: 5em;
+    margin: 0;
+    background-color: white;
+    transition: 0.5s;
+}
+.button-box button :active {
+  position: relative;
+  top: 2px;
+}
+
+.button-box button:first-child:hover {
+  background-color: greenyellow;
+}
+.button-box button:nth-child(2):hover {
+  background-color: rgb(255, 0, 0, 0.3);
+}
+/*버튼색깔*/
+.fa-check {
+  color: limegreen;
+}
+.fa-trash {
+  color: red;
+}
+.fa-undo-alt {
+  color: lightslategray;
 }

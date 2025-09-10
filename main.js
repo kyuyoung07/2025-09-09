@@ -32,22 +32,22 @@ function render(){
     for(let i=0;i<taskList.length;i++){
         if(taskList[i].isComplete==true){
             resultHTML+=`
-        <div class="task">
-            <div class="task-done">${taskList[i].taskContent}</div>
-            <div>
-                <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
+        <div class="task task-done">
+            <span>${taskList[i].taskContent}</span>
+            <div class="button-box">
+                <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-undo-alt"></i></button>
                 <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`
         }else{
             resultHTML+=`
         <div class="task">
-            <div>${taskList[i].taskContent}</div>
-            <div>
-                <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
-                <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
+            <span>${taskList[i].taskContent}</span>
+            <div class="button-box">
+              <button onclick="toggleComplete('${taskList[i].id}')"><i class="fa-solid fa-check"></i></button>
+              <button onclick="deleteTask('${taskList[i].id}')"><i class="fa-solid fa-trash"></i></button>
             </div>
-        </div>`
+          </div>`
         }
     }
     document.getElementById("task-board").innerHTML=resultHTML;
