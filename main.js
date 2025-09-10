@@ -21,6 +21,21 @@ let underLine=document.getElementById("under-line");
 let Menus=document.querySelectorAll(".task-tabs div:not(#under-line)");
 
 addButton.addEventListener("click",addTask);
+addButton.disabled=true;
+/*Enter버튼 클릭 시 자동으로 아이템 추가*/
+taskInput.addEventListener("input",function(){
+    if(taskInput.value.trim()===""){
+        addButton.disabled=true;
+    }else{
+        addButton.disabled=false;
+    }
+});
+
+taskInput.addEventListener("keydown",function(event){
+    if(event.key==="Enter"){
+        addTask();
+    }
+});
 
 Menus.forEach(menu=>menu.addEventListener("click",(e)=>Indicator(e)));
 
@@ -39,6 +54,10 @@ function addTask(){
     taskList.push(task);
     console.log(taskList);
     render();
+
+    //입력창 비우기
+    taskInput.value="";
+    addButton.disabled = true;
 }
 
 function render(){
@@ -46,8 +65,10 @@ function render(){
     let list=[];
     if(mode==="all"){
         list=taskList;
-    }else if(mode==="ongoing" || mode==="done"){
-        list=filterList;
+    }else if(mode==="ongoing"){
+        list=taskList.filter(task => !task.isComplete);
+    }else if(mode==="done"){
+        list=taskList.filter(task => task.isComplete);
     }
     //2. 리스트를 달리 보여준다
     let resultHTML='';
