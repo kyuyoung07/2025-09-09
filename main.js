@@ -21,15 +21,6 @@ let underLine=document.getElementById("under-line");
 let Menus=document.querySelectorAll(".task-tabs div:not(#under-line)");
 
 addButton.addEventListener("click",addTask);
-addButton.disabled=true;
-/*Enter버튼 클릭 시 자동으로 아이템 추가*/
-taskInput.addEventListener("input",function(){
-    if(taskInput.value.trim()===""){
-        addButton.disabled=true;
-    }else{
-        addButton.disabled=false;
-    }
-});
 
 taskInput.addEventListener("keydown",function(event){
     if(event.key==="Enter"){
@@ -46,6 +37,12 @@ for(let i=1;i<tabs.length;i++){
 }
 
 function addTask(){
+    // 입력값 검사
+    if(taskInput.value.trim() === ""){
+        alert("할 일을 입력해주세요!");
+        return;
+    }
+
     let task={
         id:randomIDGenerate(),
         taskContent:taskInput.value,
@@ -57,7 +54,6 @@ function addTask(){
 
     //입력창 비우기
     taskInput.value="";
-    addButton.disabled = true;
 }
 
 function render(){
