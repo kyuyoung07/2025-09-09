@@ -76,6 +76,7 @@ h2 {
   top: 52px;
   padding: 0px;
   transition: 0.5s;
+  z-index: 10;  /* z-index 추가로 다른 요소들 위에 표시 */
 }
 .task {
   display: flex;
